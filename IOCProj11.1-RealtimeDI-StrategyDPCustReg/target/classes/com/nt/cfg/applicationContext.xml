@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"> 
+        
+        
+	<!-- Datasource Class configuration -->
+	<bean id="drds"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		
+	
+
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver" />
+
+
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/employee" />
+
+
+		<property name="username" value="root" />
+		<property name="password" value="chriscorpion.com" />
+
+	</bean>
+	
+	
+	<!-- Dao Class object configuration -->
+	<bean id="dao" class="com.nt.dao.CustomerDaoImpl">
+		<constructor-arg name="ds" ref="drds"/>
+	</bean>
+	
+	<!-- Service class object -->
+	<bean id="service" class="com.nt.service.CustomerMgmtServiceImpl">
+		<constructor-arg name="dao" ref="dao"/>
+	</bean>
+	
+	
+	<!-- Controller class object definition -->
+	<bean id="controller" class="com.nt.controller.MainController">
+		<constructor-arg name="service" ref="service"/>
+	</bean>
+	
+
+</beans>
